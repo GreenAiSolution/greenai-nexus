@@ -528,51 +528,50 @@
     </div>
   </footer>
 
-  <!-- ONBOARDING MODAL -->
+  <!-- CHECKOUT MODAL -->
   <div id="modal-overlay" class="modal-overlay" onclick="closeModal()">
     <div class="modal" onclick="event.stopPropagation()">
       <button class="modal-close" onclick="closeModal()">✕</button>
 
+      <!-- STEP 1: Business info -->
       <div class="modal-step" id="modal-step-1">
-        <div class="modal-step-label">STEP 1 OF 4</div>
+        <div class="modal-step-label">STEP 1 OF 3</div>
+        <div class="modal-plan-summary" id="modal-plan-summary"></div>
         <h3>Tell us about your business</h3>
-        <p>We'll configure your agents for maximum impact.</p>
-        <form class="modal-form">
-          <input type="text" placeholder="Company Name" />
-          <input type="text" placeholder="Your Name" />
-          <input type="email" placeholder="Business Email" />
-          <select>
+        <p>We'll pre-configure your agents before your first call.</p>
+        <form class="modal-form" onsubmit="return false">
+          <input type="text"  id="f-company" placeholder="Company Name *" required />
+          <input type="text"  id="f-name"    placeholder="Your Full Name *" required />
+          <input type="email" id="f-email"   placeholder="Business Email *" required />
+          <input type="tel"   id="f-phone"   placeholder="Phone Number (optional)" />
+          <select id="f-size">
             <option value="">Company Size</option>
             <option>1–10 employees</option>
             <option>11–50 employees</option>
             <option>51–200 employees</option>
             <option>200+ employees</option>
           </select>
-          <button type="button" class="modal-next" onclick="nextStep(2)">Continue →</button>
+          <button type="button" class="modal-next" onclick="validateStep1()">Continue →</button>
         </form>
       </div>
 
+      <!-- STEP 2: Agent + connector selection -->
       <div class="modal-step hidden" id="modal-step-2">
-        <div class="modal-step-label">STEP 2 OF 4</div>
-        <h3>Which agents do you need?</h3>
-        <p>Select all that apply. We'll prioritize by impact.</p>
+        <div class="modal-step-label">STEP 2 OF 3</div>
+        <h3>Pick your agents &amp; tools</h3>
+        <p>Select the agents you need and the platforms you already use.</p>
+        <div class="modal-sub-label">Which agents?</div>
         <div class="agent-selector">
-          <div class="agent-sel-item" onclick="toggleAgent(this)"><span>💰</span> CFO / Finance Agent</div>
-          <div class="agent-sel-item" onclick="toggleAgent(this)"><span>📈</span> Sales SDR Agent</div>
-          <div class="agent-sel-item" onclick="toggleAgent(this)"><span>🎧</span> Customer Support Agent</div>
-          <div class="agent-sel-item" onclick="toggleAgent(this)"><span>⚙️</span> Operations Agent</div>
-          <div class="agent-sel-item" onclick="toggleAgent(this)"><span>📣</span> Marketing Agent</div>
-          <div class="agent-sel-item" onclick="toggleAgent(this)"><span>👥</span> HR Agent</div>
-          <div class="agent-sel-item" onclick="toggleAgent(this)"><span>📅</span> Executive Assistant Agent</div>
-          <div class="agent-sel-item" onclick="toggleAgent(this)"><span>📊</span> Data Analyst Agent</div>
+          <div class="agent-sel-item" onclick="toggleAgent(this)"><span>💰</span> CFO / Finance</div>
+          <div class="agent-sel-item" onclick="toggleAgent(this)"><span>📈</span> Sales SDR</div>
+          <div class="agent-sel-item" onclick="toggleAgent(this)"><span>🎧</span> Support</div>
+          <div class="agent-sel-item" onclick="toggleAgent(this)"><span>⚙️</span> Operations</div>
+          <div class="agent-sel-item" onclick="toggleAgent(this)"><span>📣</span> Marketing</div>
+          <div class="agent-sel-item" onclick="toggleAgent(this)"><span>👥</span> HR</div>
+          <div class="agent-sel-item" onclick="toggleAgent(this)"><span>📅</span> Exec Assistant</div>
+          <div class="agent-sel-item" onclick="toggleAgent(this)"><span>📊</span> Data Analyst</div>
         </div>
-        <button type="button" class="modal-next" onclick="nextStep(3)">Continue →</button>
-      </div>
-
-      <div class="modal-step hidden" id="modal-step-3">
-        <div class="modal-step-label">STEP 3 OF 4</div>
-        <h3>Connect your tools</h3>
-        <p>Select the platforms your business uses today.</p>
+        <div class="modal-sub-label" style="margin-top:16px">Which tools do you use?</div>
         <div class="connector-selector">
           <div class="conn-item" onclick="toggleConn(this)">📒 QuickBooks</div>
           <div class="conn-item" onclick="toggleConn(this)">☁️ Salesforce</div>
@@ -587,30 +586,36 @@
           <div class="conn-item" onclick="toggleConn(this)">👥 Gusto / BambooHR</div>
           <div class="conn-item" onclick="toggleConn(this)">📊 Google Sheets</div>
         </div>
-        <button type="button" class="modal-next" onclick="nextStep(4)">Continue →</button>
+        <button type="button" class="modal-next" onclick="nextStep(3)" style="margin-top:20px">Continue →</button>
       </div>
 
-      <div class="modal-step hidden" id="modal-step-4">
-        <div class="modal-step-label">STEP 4 OF 4</div>
-        <h3>Book your strategy call</h3>
-        <p>A NEXUS strategist will review your selection and have your agents live within 48 hours of this call.</p>
-        <div class="calendar-placeholder">
-          <div class="cal-icon">📅</div>
-          <p>Available slots this week:</p>
-          <div class="time-slots">
-            <div class="time-slot" onclick="selectSlot(this)">Mon Jun 30 · 10:00 AM EST</div>
-            <div class="time-slot" onclick="selectSlot(this)">Mon Jun 30 · 2:00 PM EST</div>
-            <div class="time-slot" onclick="selectSlot(this)">Tue Jul 1 · 11:00 AM EST</div>
-            <div class="time-slot" onclick="selectSlot(this)">Wed Jul 2 · 9:00 AM EST</div>
-          </div>
+      <!-- STEP 3: Payment -->
+      <div class="modal-step hidden" id="modal-step-3">
+        <div class="modal-step-label">STEP 3 OF 3 — SECURE CHECKOUT</div>
+        <h3>Complete your setup fee</h3>
+        <p>Pay securely via Stripe. Your agents go live within 48 hours of payment. Monthly billing starts after your first agent is deployed.</p>
+
+        <div class="checkout-summary" id="checkout-summary"></div>
+
+        <div class="stripe-trust">
+          <span>🔒</span>
+          <span>256-bit SSL · Powered by Stripe · Cancel anytime</span>
         </div>
-        <button type="button" class="modal-next modal-finish" onclick="finishOnboard()">Confirm &amp; Book Call ✦</button>
+
+        <a id="stripe-pay-btn" class="modal-next modal-finish stripe-btn" href="#" target="_blank" rel="noopener">
+          Pay Securely with Stripe ✦
+        </a>
+
+        <div class="checkout-guarantee">
+          <strong>30-Day ROI Guarantee</strong> — If your agents don't save more than their cost in 30 days, we refund the difference. No questions asked.
+        </div>
       </div>
 
+      <!-- DONE -->
       <div class="modal-step hidden" id="modal-step-done">
         <div class="modal-done-icon">✦</div>
-        <h3>You're in the queue.</h3>
-        <p>Check your inbox for confirmation. Your NEXUS strategist will reach out within 2 hours to confirm your slot and begin setup.</p>
+        <h3>Payment received. You're in.</h3>
+        <p>Check your inbox — a confirmation and calendar link from your NEXUS strategist will arrive within 2 hours. Your agents go live in 48 hours.</p>
         <p class="done-email">Questions? <a href="mailto:sales@greenaidigital.com" class="gold-link">sales@greenaidigital.com</a></p>
         <button type="button" class="modal-next" onclick="closeModal()">Close</button>
       </div>

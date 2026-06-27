@@ -396,8 +396,46 @@ window.addEventListener('load', () => {
   }, 2400);
 });
 
+// ── STRIPE PAYMENT LINKS ─────────────────────
+// Paste your Stripe Payment Link URLs here after creating them at dashboard.stripe.com
+const STRIPE_LINKS = {
+  starter:    'https://buy.stripe.com/REPLACE_WITH_STARTER_LINK',
+  growth:     'https://buy.stripe.com/REPLACE_WITH_GROWTH_LINK',
+};
+
+// Plan details
+const PLANS = {
+  starter: {
+    name:       'STARTER',
+    build:      '$4,997',
+    monthly:    '$2,497/mo',
+    agents:     '1 Elite AI Agent',
+    stripe:     STRIPE_LINKS.starter,
+  },
+  growth: {
+    name:       'GROWTH',
+    build:      '$9,997',
+    monthly:    '$5,997/mo',
+    agents:     '3 Elite AI Agents',
+    stripe:     STRIPE_LINKS.growth,
+  },
+};
+
+let activePlan = 'growth';
+
 // ── MODAL ────────────────────────────────────
 window.openModal = function(plan) {
+  activePlan = plan || 'growth';
+
+  // Reset to step 1
+  document.querySelectorAll('.modal-step').forEach(s => s.classList.add('hidden'));
+  document.getElementById('modal-step-1').classList.remove('hidden');
+
+  // Show plan badge at top of step 1
+  const p = PLANS[activePlan];
+  document.getElementById('modal-plan-summary').innerHTML =
+    `<div class="plan-badge-modal">${p.name} — ${p.build} setup + ${p.monthly}</div>`;
+
   document.getElementById('modal-overlay').classList.add('open');
   document.body.style.overflow = 'hidden';
 };
@@ -410,22 +448,69 @@ window.closeModal = function() {
 window.nextStep = function(step) {
   document.querySelectorAll('.modal-step').forEach(s => s.classList.add('hidden'));
   document.getElementById('modal-step-' + step).classList.remove('hidden');
+
+  // When reaching payment step, build the summary + set Stripe link
+  if (step === 3) buildCheckoutSummary();
 };
 
-window.finishOnboard = function() {
-  document.querySelectorAll('.modal-step').forEach(s => s.classList.add('hidden'));
-  document.getElementById('modal-step-done').classList.remove('hidden');
+window.validateStep1 = function() {
+  const company = document.getElementById('f-company').value.trim();
+  const name    = document.getElementById('f-name').value.trim();
+  const email   = document.getElementById('f-email').value.trim();
+  if (!company || !name || !email) {
+    showFieldError('Please fill in Company Name, Your Name, and Email.');
+    return;
+  }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    showFieldError('Please enter a valid email address.');
+    return;
+  }
+  nextStep(2);
 };
 
-window.toggleAgent = function(el) {
-  el.classList.toggle('selected');
-};
+function showFieldError(msg) {
+  let err = document.getElementById('field-error');
+  if (!err) {
+    err = document.createElement('div');
+    err.id = 'field-error';
+    err.className = 'field-error';
+    document.querySelector('#modal-step-1 .modal-form').prepend(err);
+  }
+  err.textContent = msg;
+  err.style.display = 'block';
+  setTimeout(() => { err.style.display = 'none'; }, 3500);
+}
 
-window.toggleConn = function(el) {
-  el.classList.toggle('selected');
-};
+function buildCheckoutSummary() {
+  const p       = PLANS[activePlan];
+  const company = document.getElementById('f-company').value.trim();
+  const name    = document.getElementById('f-name').value.trim();
+  const email   = document.getElementById('f-email').value.trim();
 
-window.selectSlot = function(el) {
-  document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
-  el.classList.add('selected');
-};
+  // Collect selected agents
+  const agents = [...document.querySelectorAll('.agent-sel-item.selected')]
+    .map(el => el.textContent.trim()).join(', ') || 'To be confirmed on strategy call';
+
+  // Collect selected connectors
+  const conns = [...document.querySelectorAll('.conn-item.selected')]
+    .map(el => el.textContent.trim()).join(', ') || 'To be confirmed on strategy call';
+
+  document.getElementById('checkout-summary').innerHTML = `
+    <div class="checkout-row"><span>Plan</span><strong>${p.name}</strong></div>
+    <div class="checkout-row"><span>Setup Fee (one-time)</span><strong>${p.build}</strong></div>
+    <div class="checkout-row"><span>Monthly Retainer</span><strong>${p.monthly}</strong></div>
+    <div class="checkout-row"><span>Agents</span><strong>${p.agents}</strong></div>
+    <div class="checkout-row checkout-row-sm"><span>Selected agents</span><span>${agents}</span></div>
+    <div class="checkout-row checkout-row-sm"><span>Selected tools</span><span>${conns}</span></div>
+    <div class="checkout-row checkout-row-sm"><span>Contact</span><span>${name} · ${email}</span></div>
+    <div class="checkout-row checkout-row-sm"><span>Company</span><span>${company}</span></div>
+  `;
+
+  // Build Stripe URL with pre-filled email for smoother checkout
+  let stripeUrl = p.stripe;
+  if (email) stripeUrl += `?prefilled_email=${encodeURIComponent(email)}`;
+  document.getElementById('stripe-pay-btn').href = stripeUrl;
+}
+
+window.toggleAgent = function(el) { el.classList.toggle('selected'); };
+window.toggleConn  = function(el) { el.classList.toggle('selected'); };
