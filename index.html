@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NEXUS — Elite AI Workforce</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <!-- Loader -->
+  <div id="loader">
+    <div class="loader-inner">
+      <div class="loader-hex">
+        <svg viewBox="0 0 100 115" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="50,2 98,27 98,88 50,113 2,88 2,27" stroke="#C9A84C" stroke-width="1.5" fill="none" class="hex-outline"/>
+          <polygon points="50,15 85,33 85,82 50,100 15,82 15,33" stroke="#C9A84C" stroke-width="0.5" fill="none" class="hex-inner" opacity="0.4"/>
+        </svg>
+        <div class="loader-n">N</div>
+      </div>
+      <div class="loader-bar-wrap"><div class="loader-bar"></div></div>
+      <div class="loader-text">INITIALIZING NEXUS</div>
+    </div>
+  </div>
+
+  <!-- Canvas -->
+  <canvas id="bg"></canvas>
+
+  <!-- NAV -->
+  <nav id="nav">
+    <div class="nav-logo">
+      <span class="logo-hex">⬡</span>
+      <span class="logo-word">NEXUS</span>
+      <span class="logo-by">by GreenAI</span>
+    </div>
+    <div class="nav-links">
+      <a href="#agents">Agents</a>
+      <a href="#connectors">Connectors</a>
+      <a href="#how">How It Works</a>
+      <a href="#pricing">Pricing</a>
+    </div>
+    <a class="nav-cta" href="#pricing">Deploy Your Team</a>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero" class="section">
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <span class="dot-pulse"></span>
+        ELITE AI WORKFORCE PLATFORM
+      </div>
+      <h1 class="hero-title">
+        The World's Most<br/>
+        <span class="gold">Capable AI Agents</span><br/>
+        Work For You
+      </h1>
+      <p class="hero-sub">
+        Hyper-specialized AI employees connected to every tool your business runs on — QuickBooks, Salesforce, Slack, and 300+ more. Deployed in 48 hours.
+      </p>
+      <div class="hero-actions">
+        <a class="btn-primary" href="#pricing">Build My AI Team</a>
+        <a class="btn-ghost" href="#agents">View All Agents →</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><span class="stat-num" data-target="300">0</span><span>+</span><div class="stat-label">Connectors</div></div>
+        <div class="stat-div"></div>
+        <div class="stat"><span class="stat-num" data-target="48">0</span><span>hr</span><div class="stat-label">Deploy Time</div></div>
+        <div class="stat-div"></div>
+        <div class="stat"><span class="stat-num" data-target="98">0</span><span>%</span><div class="stat-label">Task Accuracy</div></div>
+        <div class="stat-div"></div>
+        <div class="stat"><span class="stat-num" data-target="24">0</span><span>/7</span><div class="stat-label">Active</div></div>
+      </div>
+    </div>
+    <div class="scroll-hint">
+      <div class="scroll-line"></div>
+      <span>SCROLL</span>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <span>QuickBooks</span><span class="sep">✦</span>
+      <span>Salesforce</span><span class="sep">✦</span>
+      <span>Slack</span><span class="sep">✦</span>
+      <span>HubSpot</span><span class="sep">✦</span>
+      <span>Stripe</span><span class="sep">✦</span>
+      <span>Zendesk</span><span class="sep">✦</span>
+      <span>Notion</span><span class="sep">✦</span>
+      <span>Asana</span><span class="sep">✦</span>
+      <span>Gmail</span><span class="sep">✦</span>
+      <span>Shopify</span><span class="sep">✦</span>
+      <span>Gusto</span><span class="sep">✦</span>
+      <span>Monday.com</span><span class="sep">✦</span>
+      <span>Intercom</span><span class="sep">✦</span>
+      <span>Twilio</span><span class="sep">✦</span>
+      <span>Xero</span><span class="sep">✦</span>
+      <span>Pipedrive</span><span class="sep">✦</span>
+      <!-- duplicate for seamless loop -->
+      <span>QuickBooks</span><span class="sep">✦</span>
+      <span>Salesforce</span><span class="sep">✦</span>
+      <span>Slack</span><span class="sep">✦</span>
+      <span>HubSpot</span><span class="sep">✦</span>
+      <span>Stripe</span><span class="sep">✦</span>
+      <span>Zendesk</span><span class="sep">✦</span>
+      <span>Notion</span><span class="sep">✦</span>
+      <span>Asana</span><span class="sep">✦</span>
+      <span>Gmail</span><span class="sep">✦</span>
+      <span>Shopify</span><span class="sep">✦</span>
+      <span>Gusto</span><span class="sep">✦</span>
+      <span>Monday.com</span><span class="sep">✦</span>
+      <span>Intercom</span><span class="sep">✦</span>
+      <span>Twilio</span><span class="sep">✦</span>
+      <span>Xero</span><span class="sep">✦</span>
+      <span>Pipedrive</span><span class="sep">✦</span>
+    </div>
+  </div>
+
+  <!-- AGENTS ROSTER -->
+  <section id="agents" class="section agents-section">
+    <div class="section-label">THE WORKFORCE</div>
+    <h2 class="section-title">Eight Elite <span class="gold">AI Employees</span></h2>
+    <p class="section-sub">Each agent is purpose-built, relentlessly trained, and wired into your existing stack from day one.</p>
+
+    <div class="agents-grid">
+
+      <div class="agent-card" data-index="0">
+        <div class="agent-glow"></div>
+        <div class="agent-icon-wrap">
+          <div class="agent-icon">⬡</div>
+          <div class="agent-ring"></div>
+        </div>
+        <div class="agent-badge">CFO AGENT</div>
+        <h3>Finance &amp; Accounting AI</h3>
+        <p>Reconciles books, forecasts cash flow, flags anomalies, and generates board-ready reports — automatically inside QuickBooks, Xero, and Stripe.</p>
+        <div class="agent-connectors">
+          <span>QuickBooks</span><span>Xero</span><span>Stripe</span><span>Bill.com</span>
+        </div>
+        <div class="agent-metric"><span class="metric-val">14h</span> saved per week, per finance seat</div>
+      </div>
+
+      <div class="agent-card" data-index="1">
+        <div class="agent-glow"></div>
+        <div class="agent-icon-wrap">
+          <div class="agent-icon">◈</div>
+          <div class="agent-ring"></div>
+        </div>
+        <div class="agent-badge">SALES SDR AGENT</div>
+        <h3>Outbound Sales AI</h3>
+        <p>Researches prospects, writes hyper-personalized outreach, follows up on cadences, books meetings, and logs everything back into your CRM without lifting a finger.</p>
+        <div class="agent-connectors">
+          <span>Salesforce</span><span>HubSpot</span><span>Apollo</span><span>Gmail</span>
+        </div>
+        <div class="agent-metric"><span class="metric-val">3×</span> pipeline at a fraction of the cost</div>
+      </div>
+
+      <div class="agent-card" data-index="2">
+        <div class="agent-glow"></div>
+        <div class="agent-icon-wrap">
+          <div class="agent-icon">✦</div>
+          <div class="agent-ring"></div>
+        </div>
+        <div class="agent-badge">SUPPORT AGENT</div>
+        <h3>Customer Success AI</h3>
+        <p>Resolves 80% of tickets autonomously, escalates edge cases with full context, and proactively surfaces churn risks before they become cancellations.</p>
+        <div class="agent-connectors">
+          <span>Zendesk</span><span>Intercom</span><span>Freshdesk</span><span>Slack</span>
+        </div>
+        <div class="agent-metric"><span class="metric-val">80%</span> ticket deflection rate</div>
+      </div>
+
+      <div class="agent-card" data-index="3">
+        <div class="agent-glow"></div>
+        <div class="agent-icon-wrap">
+          <div class="agent-icon">⬟</div>
+          <div class="agent-ring"></div>
+        </div>
+        <div class="agent-badge">OPERATIONS AGENT</div>
+        <h3>Workflow Automation AI</h3>
+        <p>Manages projects, tracks deliverables, routes tasks, writes status summaries, and keeps your ops stack in perfect sync — no manual updates ever.</p>
+        <div class="agent-connectors">
+          <span>Asana</span><span>Monday</span><span>Notion</span><span>Jira</span>
+        </div>
+        <div class="agent-metric"><span class="metric-val">Zero</span> status meetings needed</div>
+      </div>
+
+      <div class="agent-card" data-index="4">
+        <div class="agent-glow"></div>
+        <div class="agent-icon-wrap">
+          <div class="agent-icon">◇</div>
+          <div class="agent-ring"></div>
+        </div>
+        <div class="agent-badge">MARKETING AGENT</div>
+        <h3>Growth &amp; Content AI</h3>
+        <p>Plans campaigns, writes copy, schedules posts, A/B tests subject lines, segments audiences, and reports ROI across every channel — all on autopilot.</p>
+        <div class="agent-connectors">
+          <span>HubSpot</span><span>Mailchimp</span><span>Meta Ads</span><span>Google Ads</span>
+        </div>
+        <div class="agent-metric"><span class="metric-val">10×</span> content output, same budget</div>
+      </div>
+
+      <div class="agent-card" data-index="5">
+        <div class="agent-glow"></div>
+        <div class="agent-icon-wrap">
+          <div class="agent-icon">⬡</div>
+          <div class="agent-ring"></div>
+        </div>
+        <div class="agent-badge">HR AGENT</div>
+        <h3>People Operations AI</h3>
+        <p>Handles onboarding checklists, policy Q&amp;A, PTO tracking, performance reminders, and benefits enrollment — so your HR team focuses on humans, not paperwork.</p>
+        <div class="agent-connectors">
+          <span>Gusto</span><span>BambooHR</span><span>Workday</span><span>Slack</span>
+        </div>
+        <div class="agent-metric"><span class="metric-val">90%</span> HR queries resolved instantly</div>
+      </div>
+
+      <div class="agent-card" data-index="6">
+        <div class="agent-glow"></div>
+        <div class="agent-icon-wrap">
+          <div class="agent-icon">◈</div>
+          <div class="agent-ring"></div>
+        </div>
+        <div class="agent-badge">EXEC ASSISTANT AGENT</div>
+        <h3>Executive AI Assistant</h3>
+        <p>Triages your inbox, prepares meeting briefs, books calls, manages your calendar, summarizes threads, and drafts replies — the world's most tireless EA.</p>
+        <div class="agent-connectors">
+          <span>Gmail</span><span>Outlook</span><span>Google Cal</span><span>Zoom</span>
+        </div>
+        <div class="agent-metric"><span class="metric-val">5h</span> back in your day, every day</div>
+      </div>
+
+      <div class="agent-card" data-index="7">
+        <div class="agent-glow"></div>
+        <div class="agent-icon-wrap">
+          <div class="agent-icon">✦</div>
+          <div class="agent-ring"></div>
+        </div>
+        <div class="agent-badge">DATA ANALYST AGENT</div>
+        <h3>Business Intelligence AI</h3>
+        <p>Queries databases, builds dashboards, writes SQL, spots trends before your team does, and delivers weekly insight reports straight to your inbox or Slack.</p>
+        <div class="agent-connectors">
+          <span>BigQuery</span><span>Postgres</span><span>Tableau</span><span>Sheets</span>
+        </div>
+        <div class="agent-metric"><span class="metric-val">Real-time</span> insights, zero BI analyst cost</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONNECTORS -->
+  <section id="connectors" class="section connectors-section">
+    <div class="section-label">THE ECOSYSTEM</div>
+    <h2 class="section-title">Plug Into <span class="gold">Any Stack</span></h2>
+    <p class="section-sub">300+ native connectors. Your agents speak the language of every tool your business already runs.</p>
+
+    <div class="connectors-categories">
+
+      <div class="connector-cat">
+        <div class="cat-icon">💰</div>
+        <div class="cat-name">Finance</div>
+        <div class="cat-tools">QuickBooks · Xero · Stripe · Bill.com · FreshBooks · NetSuite · Sage</div>
+      </div>
+
+      <div class="connector-cat">
+        <div class="cat-icon">📈</div>
+        <div class="cat-name">Sales & CRM</div>
+        <div class="cat-tools">Salesforce · HubSpot · Pipedrive · Apollo · Outreach · Close · ZoomInfo</div>
+      </div>
+
+      <div class="connector-cat">
+        <div class="cat-icon">🎧</div>
+        <div class="cat-name">Support</div>
+        <div class="cat-tools">Zendesk · Intercom · Freshdesk · Front · Help Scout · Gorgias</div>
+      </div>
+
+      <div class="connector-cat">
+        <div class="cat-icon">⚙️</div>
+        <div class="cat-name">Operations</div>
+        <div class="cat-tools">Asana · Monday · Notion · Jira · ClickUp · Linear · Trello</div>
+      </div>
+
+      <div class="connector-cat">
+        <div class="cat-icon">📣</div>
+        <div class="cat-name">Marketing</div>
+        <div class="cat-tools">HubSpot · Mailchimp · Klaviyo · Meta Ads · Google Ads · Semrush</div>
+      </div>
+
+      <div class="connector-cat">
+        <div class="cat-icon">👥</div>
+        <div class="cat-name">HR & People</div>
+        <div class="cat-tools">Gusto · BambooHR · Workday · Rippling · ADP · Greenhouse</div>
+      </div>
+
+      <div class="connector-cat">
+        <div class="cat-icon">💬</div>
+        <div class="cat-name">Communication</div>
+        <div class="cat-tools">Slack · MS Teams · Gmail · Outlook · WhatsApp · Twilio · Zoom</div>
+      </div>
+
+      <div class="connector-cat">
+        <div class="cat-icon">🛒</div>
+        <div class="cat-name">E-Commerce</div>
+        <div class="cat-tools">Shopify · WooCommerce · Amazon · BigCommerce · Klaviyo · Recharge</div>
+      </div>
+
+    </div>
+
+    <div class="connector-note">
+      Don't see your tool? <a href="mailto:sales@greenaidigital.com" class="gold-link">Tell us</a> — we add custom connectors in under 72 hours.
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="how" class="section how-section">
+    <div class="section-label">THE PROCESS</div>
+    <h2 class="section-title">From Signup to <span class="gold">Live in 48 Hours</span></h2>
+
+    <div class="steps-wrap">
+
+      <div class="step reveal">
+        <div class="step-num">01</div>
+        <div class="step-content">
+          <div class="step-icon-wrap">
+            <div class="step-icon-hex">
+              <svg viewBox="0 0 60 70" fill="none"><polygon points="30,2 58,17 58,53 30,68 2,53 2,17" stroke="#C9A84C" stroke-width="1" fill="none"/></svg>
+              <span>🎯</span>
+            </div>
+          </div>
+          <h3>Strategy Session</h3>
+          <p>A 30-minute call with your NEXUS strategist. We map your workflow, identify the highest-leverage tasks, and design your custom agent configuration.</p>
+        </div>
+        <div class="step-connector-line"></div>
+      </div>
+
+      <div class="step reveal">
+        <div class="step-num">02</div>
+        <div class="step-content">
+          <div class="step-icon-wrap">
+            <div class="step-icon-hex">
+              <svg viewBox="0 0 60 70" fill="none"><polygon points="30,2 58,17 58,53 30,68 2,53 2,17" stroke="#C9A84C" stroke-width="1" fill="none"/></svg>
+              <span>🔌</span>
+            </div>
+          </div>
+          <h3>One-Click Connect</h3>
+          <p>Authorize your tools via secure OAuth — QuickBooks, Salesforce, Slack, whatever you run. No API keys, no IT tickets. We handle the integration layer entirely.</p>
+        </div>
+        <div class="step-connector-line"></div>
+      </div>
+
+      <div class="step reveal">
+        <div class="step-num">03</div>
+        <div class="step-content">
+          <div class="step-icon-wrap">
+            <div class="step-icon-hex">
+              <svg viewBox="0 0 60 70" fill="none"><polygon points="30,2 58,17 58,53 30,68 2,53 2,17" stroke="#C9A84C" stroke-width="1" fill="none"/></svg>
+              <span>⚡</span>
+            </div>
+          </div>
+          <h3>Agent Deployment</h3>
+          <p>Your agents go live in 48 hours, fully trained on your business context. They start working immediately — no onboarding period, no ramp time.</p>
+        </div>
+        <div class="step-connector-line"></div>
+      </div>
+
+      <div class="step reveal">
+        <div class="step-num">04</div>
+        <div class="step-content">
+          <div class="step-icon-wrap">
+            <div class="step-icon-hex">
+              <svg viewBox="0 0 60 70" fill="none"><polygon points="30,2 58,17 58,53 30,68 2,53 2,17" stroke="#C9A84C" stroke-width="1" fill="none"/></svg>
+              <span>📊</span>
+            </div>
+          </div>
+          <h3>Command Center</h3>
+          <p>Monitor every agent's activity in real time. See tasks completed, time saved, and ROI tracked — all from your live NEXUS dashboard.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CAPABILITIES -->
+  <section id="capabilities" class="section cap-section">
+    <div class="section-label">UNDER THE HOOD</div>
+    <h2 class="section-title">Built for <span class="gold">Enterprise-Grade</span> Demands</h2>
+
+    <div class="cap-grid">
+      <div class="cap-card reveal">
+        <div class="cap-icon">🧠</div>
+        <h4>Multi-Model Intelligence</h4>
+        <p>Claude + GPT-4o running in parallel. The right model for every subtask — reasoning, writing, code, and data extraction all handled by the optimal brain.</p>
+      </div>
+      <div class="cap-card reveal">
+        <div class="cap-icon">🔄</div>
+        <h4>Multi-Agent Orchestration</h4>
+        <p>Agents coordinate with each other. Your CFO Agent can brief your Exec Assistant Agent. Your Sales Agent triggers your Support Agent. They work as a team.</p>
+      </div>
+      <div class="cap-card reveal">
+        <div class="cap-icon">🛡️</div>
+        <h4>SOC 2 Type II Security</h4>
+        <p>Your data stays yours. Zero retention policy, encrypted at rest and in transit, role-based access controls, and full audit trails on every agent action.</p>
+      </div>
+      <div class="cap-card reveal">
+        <div class="cap-icon">🔁</div>
+        <h4>Self-Healing Workflows</h4>
+        <p>When a connector goes down or a task fails, agents automatically retry, reroute, or escalate with full diagnostic context — without human intervention.</p>
+      </div>
+      <div class="cap-card reveal">
+        <div class="cap-icon">📍</div>
+        <h4>Long-Horizon Memory</h4>
+        <p>Agents remember. Every interaction, preference, and business rule is stored in vector memory — so agents get smarter and more accurate over time.</p>
+      </div>
+      <div class="cap-card reveal">
+        <div class="cap-icon">⚡</div>
+        <h4>Real-Time Execution</h4>
+        <p>Sub-second task dispatch. Agents respond to triggers instantly — a new lead, a filed invoice, an incoming ticket — and act within moments, not minutes.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="pricing" class="section pricing-section">
+    <div class="section-label">INVEST IN YOUR TEAM</div>
+    <h2 class="section-title">One Agent or <span class="gold">An Entire Department</span></h2>
+    <p class="section-sub">Every plan includes onboarding, setup, and a dedicated NEXUS strategist. No contracts — cancel any month.</p>
+
+    <div class="plans-grid">
+
+      <div class="plan-card reveal">
+        <div class="plan-tier">STARTER</div>
+        <div class="plan-price"><span class="price-dollar">$</span>2,497<span class="price-period">/mo</span></div>
+        <div class="plan-build">+ $4,997 one-time build fee</div>
+        <ul class="plan-features">
+          <li><span class="check">✦</span> 1 Elite AI Agent</li>
+          <li><span class="check">✦</span> Up to 10 Connector Integrations</li>
+          <li><span class="check">✦</span> 48-Hour Deployment</li>
+          <li><span class="check">✦</span> Monthly Performance Report</li>
+          <li><span class="check">✦</span> Email + Chat Support</li>
+          <li><span class="check">✦</span> 30-Day Optimization Sprint</li>
+        </ul>
+        <a class="plan-cta" href="#onboard" onclick="openModal('starter')">Get Started</a>
+      </div>
+
+      <div class="plan-card plan-featured reveal">
+        <div class="plan-badge-top">MOST POPULAR</div>
+        <div class="plan-tier">GROWTH</div>
+        <div class="plan-price"><span class="price-dollar">$</span>5,997<span class="price-period">/mo</span></div>
+        <div class="plan-build">+ $9,997 one-time build fee</div>
+        <ul class="plan-features">
+          <li><span class="check">✦</span> 3 Elite AI Agents (your choice)</li>
+          <li><span class="check">✦</span> Unlimited Connector Integrations</li>
+          <li><span class="check">✦</span> Multi-Agent Orchestration</li>
+          <li><span class="check">✦</span> 48-Hour Deployment</li>
+          <li><span class="check">✦</span> Weekly Performance Reports</li>
+          <li><span class="check">✦</span> Dedicated Strategist (Slack access)</li>
+          <li><span class="check">✦</span> Live Command Center Dashboard</li>
+          <li><span class="check">✦</span> Priority Support (2-hr response)</li>
+        </ul>
+        <a class="plan-cta plan-cta-featured" href="#onboard" onclick="openModal('growth')">Build My Team</a>
+      </div>
+
+      <div class="plan-card reveal">
+        <div class="plan-tier">ENTERPRISE</div>
+        <div class="plan-price enterprise-price">Custom</div>
+        <div class="plan-build">Tailored to your organization</div>
+        <ul class="plan-features">
+          <li><span class="check">✦</span> Unlimited AI Agents</li>
+          <li><span class="check">✦</span> Full Department Automation</li>
+          <li><span class="check">✦</span> Custom Agent Development</li>
+          <li><span class="check">✦</span> White-Label Option</li>
+          <li><span class="check">✦</span> SLA Guarantees</li>
+          <li><span class="check">✦</span> On-Site Implementation Support</li>
+          <li><span class="check">✦</span> SOC 2 Compliance Package</li>
+          <li><span class="check">✦</span> Executive Business Reviews</li>
+        </ul>
+        <a class="plan-cta" href="mailto:sales@greenaidigital.com">Contact Sales</a>
+      </div>
+
+    </div>
+
+    <div class="pricing-guarantee">
+      <span class="guarantee-icon">🔒</span>
+      <strong>30-Day ROI Guarantee.</strong> If your agents don't save you more than their monthly cost in measurable time or revenue — we refund the difference. No questions asked.
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section id="final-cta" class="section cta-section">
+    <div class="cta-inner reveal">
+      <div class="cta-hex-grid">
+        <div class="hex-bg h1">⬡</div>
+        <div class="hex-bg h2">⬡</div>
+        <div class="hex-bg h3">⬡</div>
+        <div class="hex-bg h4">⬡</div>
+        <div class="hex-bg h5">⬡</div>
+      </div>
+      <div class="section-label">READY TO SCALE</div>
+      <h2>Your AI Department<br/><span class="gold">Starts in 48 Hours</span></h2>
+      <p>Join the businesses running leaner, faster, and smarter with NEXUS agents handling their most critical operations — around the clock.</p>
+      <a class="btn-primary btn-lg" href="#pricing" onclick="openModal('growth')">Deploy Your First Agent</a>
+      <div class="cta-contact">Or talk to a strategist first: <a href="mailto:sales@greenaidigital.com" class="gold-link">sales@greenaidigital.com</a></div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="logo-hex">⬡</span>
+        <span class="logo-word">NEXUS</span>
+        <span class="footer-tagline">by GreenAI Solutions</span>
+      </div>
+      <div class="footer-links">
+        <a href="#agents">Agents</a>
+        <a href="#connectors">Connectors</a>
+        <a href="#pricing">Pricing</a>
+        <a href="mailto:sales@greenaidigital.com">Contact</a>
+      </div>
+      <div class="footer-copy">© 2026 GreenAI Solutions. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <!-- ONBOARDING MODAL -->
+  <div id="modal-overlay" class="modal-overlay" onclick="closeModal()">
+    <div class="modal" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+
+      <div class="modal-step" id="modal-step-1">
+        <div class="modal-step-label">STEP 1 OF 4</div>
+        <h3>Tell us about your business</h3>
+        <p>We'll configure your agents for maximum impact.</p>
+        <form class="modal-form">
+          <input type="text" placeholder="Company Name" />
+          <input type="text" placeholder="Your Name" />
+          <input type="email" placeholder="Business Email" />
+          <select>
+            <option value="">Company Size</option>
+            <option>1–10 employees</option>
+            <option>11–50 employees</option>
+            <option>51–200 employees</option>
+            <option>200+ employees</option>
+          </select>
+          <button type="button" class="modal-next" onclick="nextStep(2)">Continue →</button>
+        </form>
+      </div>
+
+      <div class="modal-step hidden" id="modal-step-2">
+        <div class="modal-step-label">STEP 2 OF 4</div>
+        <h3>Which agents do you need?</h3>
+        <p>Select all that apply. We'll prioritize by impact.</p>
+        <div class="agent-selector">
+          <div class="agent-sel-item" onclick="toggleAgent(this)"><span>💰</span> CFO / Finance Agent</div>
+          <div class="agent-sel-item" onclick="toggleAgent(this)"><span>📈</span> Sales SDR Agent</div>
+          <div class="agent-sel-item" onclick="toggleAgent(this)"><span>🎧</span> Customer Support Agent</div>
+          <div class="agent-sel-item" onclick="toggleAgent(this)"><span>⚙️</span> Operations Agent</div>
+          <div class="agent-sel-item" onclick="toggleAgent(this)"><span>📣</span> Marketing Agent</div>
+          <div class="agent-sel-item" onclick="toggleAgent(this)"><span>👥</span> HR Agent</div>
+          <div class="agent-sel-item" onclick="toggleAgent(this)"><span>📅</span> Executive Assistant Agent</div>
+          <div class="agent-sel-item" onclick="toggleAgent(this)"><span>📊</span> Data Analyst Agent</div>
+        </div>
+        <button type="button" class="modal-next" onclick="nextStep(3)">Continue →</button>
+      </div>
+
+      <div class="modal-step hidden" id="modal-step-3">
+        <div class="modal-step-label">STEP 3 OF 4</div>
+        <h3>Connect your tools</h3>
+        <p>Select the platforms your business uses today.</p>
+        <div class="connector-selector">
+          <div class="conn-item" onclick="toggleConn(this)">📒 QuickBooks</div>
+          <div class="conn-item" onclick="toggleConn(this)">☁️ Salesforce</div>
+          <div class="conn-item" onclick="toggleConn(this)">💬 Slack</div>
+          <div class="conn-item" onclick="toggleConn(this)">🎯 HubSpot</div>
+          <div class="conn-item" onclick="toggleConn(this)">💳 Stripe</div>
+          <div class="conn-item" onclick="toggleConn(this)">🎧 Zendesk</div>
+          <div class="conn-item" onclick="toggleConn(this)">📋 Notion</div>
+          <div class="conn-item" onclick="toggleConn(this)">✅ Asana</div>
+          <div class="conn-item" onclick="toggleConn(this)">📧 Gmail / Outlook</div>
+          <div class="conn-item" onclick="toggleConn(this)">🛒 Shopify</div>
+          <div class="conn-item" onclick="toggleConn(this)">👥 Gusto / BambooHR</div>
+          <div class="conn-item" onclick="toggleConn(this)">📊 Google Sheets</div>
+        </div>
+        <button type="button" class="modal-next" onclick="nextStep(4)">Continue →</button>
+      </div>
+
+      <div class="modal-step hidden" id="modal-step-4">
+        <div class="modal-step-label">STEP 4 OF 4</div>
+        <h3>Book your strategy call</h3>
+        <p>A NEXUS strategist will review your selection and have your agents live within 48 hours of this call.</p>
+        <div class="calendar-placeholder">
+          <div class="cal-icon">📅</div>
+          <p>Available slots this week:</p>
+          <div class="time-slots">
+            <div class="time-slot" onclick="selectSlot(this)">Mon Jun 30 · 10:00 AM EST</div>
+            <div class="time-slot" onclick="selectSlot(this)">Mon Jun 30 · 2:00 PM EST</div>
+            <div class="time-slot" onclick="selectSlot(this)">Tue Jul 1 · 11:00 AM EST</div>
+            <div class="time-slot" onclick="selectSlot(this)">Wed Jul 2 · 9:00 AM EST</div>
+          </div>
+        </div>
+        <button type="button" class="modal-next modal-finish" onclick="finishOnboard()">Confirm &amp; Book Call ✦</button>
+      </div>
+
+      <div class="modal-step hidden" id="modal-step-done">
+        <div class="modal-done-icon">✦</div>
+        <h3>You're in the queue.</h3>
+        <p>Check your inbox for confirmation. Your NEXUS strategist will reach out within 2 hours to confirm your slot and begin setup.</p>
+        <p class="done-email">Questions? <a href="mailto:sales@greenaidigital.com" class="gold-link">sales@greenaidigital.com</a></p>
+        <button type="button" class="modal-next" onclick="closeModal()">Close</button>
+      </div>
+
+    </div>
+  </div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
